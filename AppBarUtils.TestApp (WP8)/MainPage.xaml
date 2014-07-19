@@ -1,0 +1,160 @@
+﻿<!--
+//===============================================================================
+// Copyright © 2013 Allen Lee
+// This code released under the terms of the MIT License (http://appbarutils.codeplex.com/license)
+//===============================================================================
+-->
+<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    xmlns:local="clr-namespace:AppBarUtils.TestApp"
+    xmlns:eim="clr-namespace:Microsoft.Expression.Interactivity.Media;assembly=Microsoft.Expression.Interactions" 
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions" 
+    x:Class="AppBarUtils.TestApp.MainPage"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" toolkit:TiltEffect.IsTiltEnabled="True">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <phone:PhoneApplicationPage.FontFamily>
+        <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+    </phone:PhoneApplicationPage.FontFamily>
+    <phone:PhoneApplicationPage.FontSize>
+        <StaticResource ResourceKey="PhoneFontSizeNormal"/>
+    </phone:PhoneApplicationPage.FontSize>
+    <phone:PhoneApplicationPage.Foreground>
+        <StaticResource ResourceKey="PhoneForegroundBrush"/>
+    </phone:PhoneApplicationPage.Foreground>
+
+    <!--Usage samples-->
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Title="APPBARUTILS" SelectedIndex="{Binding SelectedPivotItemIndex, Mode=TwoWay}">
+            <!--Pivot item one-->
+            <controls:PivotItem Header="demo">
+                <Grid>
+                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Margin="{StaticResource PhoneTouchTargetOverhang}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Tap">
+                                    <ec:NavigateToPageAction TargetPage="/FixedAppBarPage.xaml"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBlock TextWrapping="Wrap" Text="fixed app bar" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                            <TextBlock TextWrapping="Wrap" Text="the whole page contains only one app bar" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource PhoneTouchTargetOverhang}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Tap">
+                                    <ec:NavigateToPageAction TargetPage="/DynamicAppBarPivotPage.xaml"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBlock TextWrapping="Wrap" Text="dynamic app bar for pivot" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                            <TextBlock TextWrapping="Wrap" Text="different pivot item shows different app bar" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource PhoneTouchTargetOverhang}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Tap">
+                                    <ec:NavigateToPageAction TargetPage="/DynamicAppBarPanoPage.xaml"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBlock TextWrapping="Wrap" Text="dynamic app bar for pano" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                            <TextBlock TextWrapping="Wrap" Text="different pano item shows different app bar" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                        </StackPanel>
+                        <StackPanel Margin="{StaticResource PhoneTouchTargetOverhang}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Tap">
+                                    <ec:NavigateToPageAction TargetPage="/DynamicAppBarPhonePage.xaml"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBlock TextWrapping="Wrap" Text="dynamic app bar for page" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                            <TextBlock TextWrapping="Wrap" Text="different page state shows different app bar" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                        </StackPanel>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="history">
+                <Grid>
+                    <ScrollViewer>
+                        <ItemsControl>
+                            <TextBlock TextWrapping="Wrap" Text="2.4 (Jun 9 2013):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] Now buttons and menu items in dynamic app bar can take advantage of existing trigger actions provided by Blend SDK." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="2.3 (May 26 2013):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Bug fix] Fixed the 'Path cannot be absolute' issue as well as some binding issues of dynamic app bar reported at codeplex. WP8 sample updated to use LongListMultiSelector instead of MultiselectList and the native Pivot instead of LockablePivot." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="2.2 (Nov 16 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New release] Buddy, I'm glad to announce the support for Windows Phone SDK 8.0. Usages remain the same. If you're upgrading apps to Windows Phone 8.0, just replace the dll without any changes to the existing code. Cheers!" Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="2.1 (Sep 25 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] A StateChangedTrigger has been added for defining multiple app bars within a page where different state shows different app bar. An examples is the built-in email page where there're two different app bars for both reading and selecting." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="2.0 (Sep 16 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] A mapping mechanism has been added to enable you to define which pivot/pano item shows which app bar. It also enables multiple pivot/pano items to share the same app bar." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="2.0 Beta (Sep 15 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] Many of you have been asking for dynamic app bar. Today I'm happy to announce you've got what you want. With this release, you can easily define multiple app bars within a pivot/pano page, and have them switched when a user changes the current pivot/pano item." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.4 (May 6 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Bug fix] This is a fix to a regression bug when fixing the last bug. Specifically the initial value of IsEnabled is ignored in the demo code." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.3 (Apr 21 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Bug fix] When using AppBarItemCommand together with MVVM Light Toolkit, especially involving view model locator, the initial value of IsEnabled of an app bar item cannot be set to false via binding to a command object." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.2 (Mar 18 2012):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] AppBarItemBehavior and AppBarItemTrigger provide IconUri dependency property for icon uri binding to view model." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.1 (Dec 21 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] AppBarPropertyBinder enables you to bind properties from app bar to your view model. Thanks w0rddriven for contributing the code!" Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 RTW (Sep 30 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[RTW] Friends, I'm here to announce the AppBarUtils for Windows Phone SDK 7.1 RTW! Thanks for using it!" Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 RC 3 (Sep 23 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Refactoring (breaking changes)] ItemType, ItemText, and DisplayText are refactored to Type, Id, and Text respectively. GoBackAction was added dedicated for go-back. NavigateWithQueryStringAction no longer supports go-back." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 RC 2 (Sep 7 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] AppBarItemTrigger and AppBarItemBehavior now come with a DisplayText property that you can use to bind the Text property of app bar button/menu item to your view model." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 RC (Aug 24 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] With the IsEnabled dependency property of AppBarItemTrigger, you can now bind the IsEnabled property of app bar button/menu item to your view model." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta 7 (Aug 22 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Bug fix (breaking change)] Looks like the Name property of Parameter conflicts with the predefined Name property of XAML. Rename it to Field." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta 6 (Aug 21 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Bug fix] When using NavigateWithQueryStringAction with query string parameters and an empty TargetPage, the app will no longer crash." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta 5 (Aug 16 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] Let me introduce today's big guy, NavigateWithQueryStringAction. As its name implied, you can set up the query string right inside the xaml. Because it's an trigger action, it can be used together with any attachable target, not just app bar item. What's more, you can bind the parameter values to the properties of your view model!" Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta 4 (Aug 14 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Refactoring] The same functionality. But the classes have been refactored to only three: AppBarItemCommand, AppBarItemNavigation, and AppBarItemTrigger." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta 3 (Aug 13 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] Now with AppBarButtonClickedTrigger and AppBarMenuItemClickTrigger at hand, you can take advantage of existing trigger actions provided by Blend SDK and more!" Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta 2 (Aug 12 2011):" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[New features] The value of IsEnabled property is now based on the return value of CanExecute method and CanExecuteChanged event when doing command binding." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                            <TextBlock TextWrapping="Wrap" Text="1.0 Beta (Aug 11 2011):" Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                            <TextBlock TextWrapping="Wrap" Text="[Initial release] AppBarButtonCommand, AppBarButtonNavigation, AppBarMenuItemCommand, and AppBarMenuItemNavigation behaviors added, supporting basic command binding and navigation for application bar button/menu item." Margin="{StaticResource PhoneTouchTargetOverhang}" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+</phone:PhoneApplicationPage>

@@ -1,0 +1,105 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="AppBarUtils.TestApp.DynamicAppBarPhonePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:AppBarUtils.TestApp.Utils"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions" 
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+    
+    <phone:PhoneApplicationPage.Resources>
+        <utils:DateConverter x:Key="DateConverter"/>
+        <DataTemplate x:Key="TodosItemTemplate">
+            <StackPanel Margin="0,-12,0,24">
+                <TextBlock Text="{Binding Subject}" FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                <TextBlock Text="{Binding DueDate, Converter={StaticResource DateConverter}, StringFormat='due date: \{0\}'}"/>
+            </StackPanel>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <phone:Pivot Title="INBOX" utils:PivotHelper.IsLocked="{Binding IsSelecting}">
+            <phone:PivotItem Header="all">
+                <Grid>
+                    <toolkit:LongListMultiSelector
+                        ItemTemplate="{StaticResource TodosItemTemplate}"
+                        ItemsSource="{Binding Todos}"
+                        IsSelectionEnabled="{Binding IsSelecting, Mode=TwoWay}"/>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="unread">
+                <Grid>
+                    <toolkit:LongListMultiSelector
+                        ItemTemplate="{StaticResource TodosItemTemplate}"
+                        ItemsSource="{Binding Todos}"
+                        IsSelectionEnabled="{Binding IsSelecting, Mode=TwoWay}"/>
+                </Grid>
+            </phone:PivotItem>
+
+            <phone:PivotItem Header="urgent">
+                <Grid>
+                    <toolkit:LongListMultiSelector
+                        ItemTemplate="{StaticResource TodosItemTemplate}"
+                        ItemsSource="{Binding Todos}"
+                        IsSelectionEnabled="{Binding IsSelecting, Mode=TwoWay}"/>
+                </Grid>
+            </phone:PivotItem>
+
+            <i:Interaction.Triggers>
+                <abu:StateChangedTrigger State="{Binding IsSelecting}">
+                    <abu:SwitchAppBarAction>
+                        <abu:AppBar Id="0">
+                            <abu:AppBar.MenuItems>
+                                <abu:AppBarMenuItem Text="settings">
+                                    <ec:NavigateToPageAction TargetPage="/DummyPage.xaml"/>
+                                </abu:AppBarMenuItem>
+                            </abu:AppBar.MenuItems>
+                            <abu:AppBarButton IconUri="/icons/appbar.add.rest.png" Text="add">
+                                <ec:NavigateToPageAction TargetPage="/DummyPage.xaml"/>
+                            </abu:AppBarButton>
+                            <abu:AppBarButton IconUri="/icons/appbar.list.check.png" Text="select" Command="{Binding SelectCommand}"/>
+                        </abu:AppBar>
+                        <abu:AppBar Id="1">
+                            <abu:AppBarButton IconUri="/icons/appbar.delete.rest.png" Text="delete" Command="{Binding DeleteCommand}"/>
+                        </abu:AppBar>
+                    </abu:SwitchAppBarAction>
+                </abu:StateChangedTrigger>
+            </i:Interaction.Triggers>
+        </phone:Pivot>
+    </Grid>
+    
+</phone:PhoneApplicationPage>

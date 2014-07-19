@@ -1,0 +1,111 @@
+﻿<!--
+//===============================================================================
+// Copyright © 2013 Allen Lee
+// This code released under the terms of the MIT License (http://appbarutils.codeplex.com/license)
+//===============================================================================
+-->
+<phone:PhoneApplicationPage 
+    x:Class="AppBarUtils.TestApp.DynamicAppBarPivotPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions" 
+    xmlns:local="clr-namespace:AppBarUtils.TestApp"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Title="APPBARUTILS">
+            <!--Pivot item one-->
+            <controls:PivotItem Header="item1">
+                <Grid>
+                	<TextBlock TextWrapping="Wrap" Text="The app bar on this pivot item contains two buttons and one menu item. Clicking on them will show corresponding message." FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="item2">
+                <Grid>
+                    <TextBlock TextWrapping="Wrap" Text="This pivot item and the previous one share the same app bar." FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item three-->
+            <controls:PivotItem Header="item3">
+                <Grid>
+                	<TextBlock TextWrapping="Wrap" Text="The app bar on this pivot item is in minimized mode and contains two menu items. Clicking on them will show corresponding message." FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                </Grid>
+            </controls:PivotItem>
+            
+            <i:Interaction.Triggers>
+                <abu:SelectedPivotItemChangedTrigger>
+                    <abu:SelectedPivotItemChangedTrigger.SelectionMappings>
+                        <!--Map 1st and 2nd pivot item to 1st app bar-->
+                        <abu:SelectionMapping SourceIndex="0" TargetIndex="0"/>
+                        <abu:SelectionMapping SourceIndex="1" TargetIndex="0"/>
+                        <!--Map 3rd pivot item to 2nd app bar-->
+                        <abu:SelectionMapping SourceIndex="2" TargetIndex="1"/>
+                    </abu:SelectedPivotItemChangedTrigger.SelectionMappings>
+                    <abu:SwitchAppBarAction>
+                        <abu:AppBar Id="0">
+                            <abu:AppBar.MenuItems>
+                                <abu:AppBarMenuItem Text="clear" Command="{Binding SampleCommand}"/>
+                            </abu:AppBar.MenuItems>
+                            <!--Set IconUri and Text through data binding-->
+                            <abu:AppBarButton IconUri="{Binding AddButtonIcon}" Text="{Binding AddButtonText}">
+                                <ec:NavigateToPageAction TargetPage="/DummyPage.xaml"/>
+                            </abu:AppBarButton>
+                            <!--Set IconUri and Text with plain string-->
+                            <abu:AppBarButton IconUri="/icons/appbar.sync.rest.png" Text="sync" Command="{Binding SampleCommand}"/>
+                        </abu:AppBar>
+                        <abu:AppBar Id="1" Mode="Minimized">
+                            <abu:AppBar.MenuItems>
+                                <!--Set Text with plain string-->
+                                <abu:AppBarMenuItem Text="settings">
+                                    <ec:NavigateToPageAction TargetPage="/DummyPage.xaml"/>
+                                </abu:AppBarMenuItem>
+                                <!--Set Text through data binding-->
+                                <abu:AppBarMenuItem Text="{Binding HelpMenuItemText}" Command="{Binding SampleCommand}"/>
+                            </abu:AppBar.MenuItems>
+                        </abu:AppBar>
+                    </abu:SwitchAppBarAction>
+                </abu:SelectedPivotItemChangedTrigger>
+            </i:Interaction.Triggers>
+        </controls:Pivot>
+    </Grid>
+    
+</phone:PhoneApplicationPage>

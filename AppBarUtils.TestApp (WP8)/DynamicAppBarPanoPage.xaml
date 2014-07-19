@@ -1,0 +1,101 @@
+﻿<!--
+//===============================================================================
+// Copyright © 2013 Allen Lee
+// This code released under the terms of the MIT License (http://appbarutils.codeplex.com/license)
+//===============================================================================
+-->
+<phone:PhoneApplicationPage 
+    x:Class="AppBarUtils.TestApp.DynamicAppBarPanoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <!--LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot">
+        <controls:Panorama Title="people">
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="recent">
+                <Grid>
+                	<TextBlock TextWrapping="Wrap" Text="The app bar on this page mimics that of the built-in people hub." FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                </Grid>
+            </controls:PanoramaItem>
+
+            <!--Panorama item two-->
+            <controls:PanoramaItem Header="all">
+                <Grid>
+                    <TextBlock TextWrapping="Wrap" Text="The app bar changes when you change the current pano item." FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                </Grid>
+            </controls:PanoramaItem>
+
+            <!--Panorama item three-->
+            <controls:PanoramaItem Header="what's new">
+                <Grid>
+                	<TextBlock TextWrapping="Wrap" Text="Clicking on an app bar button/menu item will show the corresponding message." FontSize="{StaticResource PhoneFontSizeLarge}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                </Grid>
+            </controls:PanoramaItem>
+
+            <i:Interaction.Triggers>
+                <abu:SelectedPanoItemChangedTrigger>
+                    <abu:SwitchAppBarAction>
+                        <abu:AppBar Id="0" Mode="Minimized">
+                            <abu:AppBar.MenuItems>
+                                <abu:AppBarMenuItem Text="settings" Command="{Binding SampleCommand}"/>
+                            </abu:AppBar.MenuItems>
+                        </abu:AppBar>
+                        <abu:AppBar Id="1">
+                            <abu:AppBar.MenuItems>
+                                <abu:AppBarMenuItem Text="settings" Command="{Binding SampleCommand}"/>
+                            </abu:AppBar.MenuItems>
+                            <abu:AppBarButton IconUri="/icons/appbar.add.rest.png" Text="add" Command="{Binding SampleCommand}"/>
+                            <abu:AppBarButton IconUri="/icons/appbar.feature.search.rest.png" Text="search" Command="{Binding SampleCommand}"/>
+                        </abu:AppBar>
+                        <abu:AppBar Id="2" Mode="Minimized">
+                            <abu:AppBar.MenuItems>
+                                <abu:AppBarMenuItem Text="refresh" Command="{Binding SampleCommand}"/>
+                                <abu:AppBarMenuItem Text="settings" Command="{Binding SampleCommand}"/>
+                            </abu:AppBar.MenuItems>
+                        </abu:AppBar>
+                    </abu:SwitchAppBarAction>
+                </abu:SelectedPanoItemChangedTrigger>
+            </i:Interaction.Triggers>
+        </controls:Panorama>
+    </Grid>
+
+    <!--Panorama-based applications should not show an ApplicationBar-->
+
+</phone:PhoneApplicationPage>
