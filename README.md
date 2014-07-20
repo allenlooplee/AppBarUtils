@@ -1,14 +1,14 @@
-introduction
+Introduction
 ===========
 
 AppBarUtils provides out-of-box app bar behaviors/triggers/actions for Windows Phone SDK 8.0 or higher. They enable you to do command binding (also binding for other properties) for app bar buttons/menu items, make use of the built-in Blend SDK and 3rd party behaviors, and dynamically show different app bars for different pano/pivot items or based on different page states.
 
-get the toolkit
+Get the toolkit
 ===========
 
 AppBarUtils is available [via NuGet](http://nuget.org/packages/AppBarUtils). Simply add it to your project through the NuGet extension from within Visual Studio. If you are using Visual Studio Express, you can still download it from here CodePlex and add it to your project manually.
 
-sample code
+Sample code
 ===========
 
 ```
