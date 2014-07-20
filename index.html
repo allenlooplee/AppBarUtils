@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="AppBarUtils : AppBarUtils provides out-of-box app bar behaviors/triggers/actions for Windows Phone SDK 8.0 or higher." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>AppBarUtils</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/allenlooplee/AppBarUtils">View on GitHub</a>
+
+          <h1 id="project_title">AppBarUtils</h1>
+          <h2 id="project_tagline">AppBarUtils provides out-of-box app bar behaviors/triggers/actions for Windows Phone SDK 8.0 or higher.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/allenlooplee/AppBarUtils/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/allenlooplee/AppBarUtils/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>AppBarUtils enables you to do command binding (also binding for other properties) for app bar buttons/menu items, make use of the built-in Blend SDK and 3rd party behaviors, and dynamically show different app bars for different pano/pivot items or based on different page states.</p>
+
+<h1>
+<a name="get-the-toolkit" class="anchor" href="#get-the-toolkit"><span class="octicon octicon-link"></span></a>Get the toolkit</h1>
+
+<p>AppBarUtils is available <a href="http://nuget.org/packages/AppBarUtils">via NuGet</a>. Simply add it to your project through the NuGet extension from within Visual Studio. If you are using Visual Studio Express, you can still download it from here CodePlex and add it to your project manually.</p>
+
+<h1>
+<a name="sample-code" class="anchor" href="#sample-code"><span class="octicon octicon-link"></span></a>Sample code</h1>
+
+<pre><code>&lt;!--Behaviors for fixed app bar--&gt;
+&lt;i:Interaction.Behaviors&gt;
+    &lt;abu:AppBarItemCommand Id="locked" Text="{Binding LockButtonDisplayText}"
+        IconUri="{Binding LockButtonIconUri}" Command="{Binding LockCommand}"/&gt;
+&lt;/i:Interaction.Behaviors&gt;
+
+&lt;i:Interaction.Triggers&gt;
+    &lt;abu:AppBarItemTrigger Type="Button" Id="sync" 
+        IsEnabled="{Binding HasData}" Text="{Binding SyncButtonDisplayText}"&gt;
+        &lt;ec:CallMethodAction MethodName="Sync" TargetObject="{Binding}"/&gt;
+    &lt;/abu:AppBarItemTrigger&gt;
+&lt;/i:Interaction.Triggers&gt;
+
+&lt;!--Behaviors for dynamic app bar--&gt;
+&lt;i:Interaction.Triggers&gt;
+    &lt;abu:SelectedPivotItemChangedTrigger&gt;
+        &lt;abu:SwitchAppBarAction&gt;
+            &lt;abu:AppBar Id="0"&gt;
+                &lt;abu:AppBar.MenuItems&gt;
+                    &lt;abu:AppBarMenuItem Text="clear"
+                        Command="{Binding SampleCommand}"/&gt;
+                &lt;/abu:AppBar.MenuItems&gt;
+                &lt;abu:AppBarButton IconUri="{Binding AddButtonIcon}"
+                    Text="{Binding AddButtonText}"&gt;
+                    &lt;ec:NavigateToPageAction TargetPage="/AddPage.xaml"/&gt;
+                &lt;/abu:AppBarButton&gt;
+            &lt;/abu:AppBar&gt;
+            &lt;abu:AppBar Id="1" Mode="Minimized"&gt;
+                &lt;abu:AppBar.MenuItems&gt;
+                    &lt;abu:AppBarMenuItem Text="help"&gt;
+                        &lt;ec:NavigateToPageAction TargetPage="/HelpPage.xaml"/&gt;
+                    &lt;/abu:AppBarMenuItem&gt;
+                &lt;/abu:AppBar.MenuItems&gt;
+            &lt;/abu:AppBar&gt;
+        &lt;/abu:SwitchAppBarAction&gt;
+    &lt;/abu:SelectedPivotItemChangedTrigger&gt;
+&lt;/i:Interaction.Triggers&gt;
+</code></pre>
+
+<p><em>You can find a fully functional demo in the source code.</em></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">AppBarUtils maintained by <a href="https://github.com/allenlooplee">allenlooplee</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
