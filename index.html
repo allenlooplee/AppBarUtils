@@ -40,7 +40,7 @@
 <h1>
 <a name="sample-code" class="anchor" href="#sample-code"><span class="octicon octicon-link"></span></a>Sample code</h1>
 
-<pre><code>&lt;!--Behaviors for fixed app bar--&gt;
+<pre><code>
 &lt;i:Interaction.Behaviors&gt;
     &lt;abu:AppBarItemCommand Id="locked" Text="{Binding LockButtonDisplayText}"
         IconUri="{Binding LockButtonIconUri}" Command="{Binding LockCommand}"/&gt;
@@ -52,34 +52,23 @@
         &lt;ec:CallMethodAction MethodName="Sync" TargetObject="{Binding}"/&gt;
     &lt;/abu:AppBarItemTrigger&gt;
 &lt;/i:Interaction.Triggers&gt;
-
-&lt;!--Behaviors for dynamic app bar--&gt;
-&lt;i:Interaction.Triggers&gt;
-    &lt;abu:SelectedPivotItemChangedTrigger&gt;
-        &lt;abu:SwitchAppBarAction&gt;
-            &lt;abu:AppBar Id="0"&gt;
-                &lt;abu:AppBar.MenuItems&gt;
-                    &lt;abu:AppBarMenuItem Text="clear"
-                        Command="{Binding SampleCommand}"/&gt;
-                &lt;/abu:AppBar.MenuItems&gt;
-                &lt;abu:AppBarButton IconUri="{Binding AddButtonIcon}"
-                    Text="{Binding AddButtonText}"&gt;
-                    &lt;ec:NavigateToPageAction TargetPage="/AddPage.xaml"/&gt;
-                &lt;/abu:AppBarButton&gt;
-            &lt;/abu:AppBar&gt;
-            &lt;abu:AppBar Id="1" Mode="Minimized"&gt;
-                &lt;abu:AppBar.MenuItems&gt;
-                    &lt;abu:AppBarMenuItem Text="help"&gt;
-                        &lt;ec:NavigateToPageAction TargetPage="/HelpPage.xaml"/&gt;
-                    &lt;/abu:AppBarMenuItem&gt;
-                &lt;/abu:AppBar.MenuItems&gt;
-            &lt;/abu:AppBar&gt;
-        &lt;/abu:SwitchAppBarAction&gt;
-    &lt;/abu:SelectedPivotItemChangedTrigger&gt;
-&lt;/i:Interaction.Triggers&gt;
 </code></pre>
 
 <p><em>You can find a fully functional demo in the source code.</em></p>
+
+<h1>
+<a name="Documentation" class="anchor" href="#Documentation"><span class="octicon octicon-link"></span></a>Documentation</h1>
+
+<ol>
+<li>Article: How to use AppBarUtils in Blend? (<a href="http://windowsphonegeek.com/articles/How-to-Use-AppBarUtils-in-Blend-">English</a>, <a href="http://www.cnblogs.com/allenlooplee/archive/2011/11/28/2265729.html">简体中文</a>)</li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2011/08/26/how-to-do-command-binding-for-application-bar-with-appbarutils-in-xaml/">How to do command binding for application bar with AppBarUtils in XAML?</a></li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2011/08/31/how-to-do-navigation-for-application-bar-with-appbarutils-in-xaml/">How to do navigation for application bar with AppBarUtils in XAML?</a></li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2011/09/02/how-to-use-actions-shipped-with-blend-with-appbarutils-in-xaml/">How to use actions shipped with Blend with AppBarUtils in XAML?</a></li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2011/09/09/how-to-bind-text-of-an-app-bar-item-with-appbarutils-in-xaml/">How to bind text of an app bar item with AppBarUtils in XAML?</a></li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2012/09/17/how-to-show-different-app-bar-for-different-pivotpano-item/">How to show different app bar for different pivot/pano item?</a></li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2012/09/17/how-to-share-an-app-bar-between-multiple-pivotpano-items/">How to share an app bar between multiple pivot/pano items?</a></li>
+<li>Article: <a href="http://allenlooplee.wordpress.com/2012/09/25/how-to-show-different-app-bar-for-different-page-state/">How to show different app bar for different page state?</a></li>
+</ol>
 
 <h1>
 <a name="Support" class="anchor" href="#Support"><span class="octicon octicon-link"></span></a>Support</h1>
