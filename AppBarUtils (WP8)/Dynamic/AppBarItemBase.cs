@@ -31,19 +31,21 @@ namespace AppBarUtils
         }
 
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(AppBarItemBase), new PropertyMetadata(TextPropertyChanged));
+            DependencyProperty.Register("Text", typeof(string), typeof(AppBarItemBase), new PropertyMetadata(OnTextChanged));
 
-        private void ChangeText()
+        protected virtual void OnTextChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(Text))
+            var newValue = e.NewValue as string;
+
+            if (!String.IsNullOrWhiteSpace(newValue))
             {
-                _applicationBarItem.Text = Text;
+                _applicationBarItem.Text = newValue;
             }
         }
 
-        private static void TextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((AppBarItemBase)sender).ChangeText();
+            ((AppBarItemBase)sender).OnTextChanged(e);
         }
 
         #endregion
@@ -59,16 +61,16 @@ namespace AppBarUtils
         }
 
         public static readonly DependencyProperty IsEnabledProperty =
-            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(AppBarItemBase), new PropertyMetadata(true, IsEnablePropertyChanged));
+            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(AppBarItemBase), new PropertyMetadata(true, OnIsEnabledChanged));
 
-        private void ChangeIsEnabled()
+        protected virtual void OnIsEnabledChanged(DependencyPropertyChangedEventArgs e)
         {
-            _applicationBarItem.IsEnabled = IsEnabled;
+            _applicationBarItem.IsEnabled = (bool)e.NewValue;
         }
 
-        private static void IsEnablePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnIsEnabledChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((AppBarItemBase)sender).ChangeIsEnabled();
+            ((AppBarItemBase)sender).OnIsEnabledChanged(e);
         }
 
         #endregion
@@ -93,7 +95,7 @@ namespace AppBarUtils
             set { SetValue(CommandParameterProperty, value); }
         }
 
-        private void CanExecuteChanged(object sender, EventArgs e)
+        protected virtual void CanExecuteChanged(object sender, EventArgs e)
         {
             IsEnabled = Command.CanExecute(CommandParameter);
         }
@@ -186,13 +188,13 @@ namespace AppBarUtils
             }
         }
 
-        private ManualTrigger _manualTrigger;
+        internal ManualTrigger _manualTrigger;
 
         #endregion
 
         protected IApplicationBarMenuItem _applicationBarItem;
 
-        protected void SubscribeClickEvent()
+        protected virtual void SubscribeClickEvent()
         {
             _applicationBarItem.Click +=
                 (o, e) =>

@@ -53,22 +53,8 @@ namespace AppBarUtils.TestApp.ViewModels
             AddCommand = _addCommands[0];
             ClearCommand = new RelayCommand(() => Data.Clear(), () => ClearMenuItemIsEnabled);
 
-            LockButtonDisplayText = "lock";
-            LockButtonIconUri = new Uri("/icons/lock.png", UriKind.Relative);
-            LockCommand = new RelayCommand(
-                () =>
-                {
-                    if (LockButtonDisplayText == "lock")
-                    {
-                        LockButtonDisplayText = "unlock";
-                        LockButtonIconUri = new Uri("/icons/unlock.png", UriKind.Relative);
-                    }
-                    else
-                    {
-                        LockButtonDisplayText = "lock";
-                        LockButtonIconUri = new Uri("/icons/lock.png", UriKind.Relative);
-                    }
-                });
+            LockCommand = new RelayCommand(() => IsLocked = true);
+            UnlockCommand = new RelayCommand(() => IsLocked = false);
         }
 
         #endregion
@@ -221,6 +207,20 @@ namespace AppBarUtils.TestApp.ViewModels
             }
         }
 
+        private RelayCommand _unlockCommand;
+        public RelayCommand UnlockCommand
+        {
+            get { return _unlockCommand; }
+            set
+            {
+                if (_unlockCommand != value)
+                {
+                    _unlockCommand = value;
+                    RaisePropertyChanged("UnlockCommand");
+                }
+            }
+        }
+
         public void Sync()
         {
             System.Windows.MessageBox.Show("Sync completed.");
@@ -260,22 +260,19 @@ namespace AppBarUtils.TestApp.ViewModels
 
         #endregion
 
-        #region app bar icon uri
+        private bool _isLocked = false;
 
-        private Uri _lockButtonIconUri;
-        public Uri LockButtonIconUri
+        public bool IsLocked
         {
-            get { return _lockButtonIconUri; }
+            get { return _isLocked; }
             set
             {
-                if (_lockButtonIconUri != value)
+                if (_isLocked != value)
                 {
-                    _lockButtonIconUri = value;
-                    RaisePropertyChanged("LockButtonIconUri");
+                    _isLocked = value;
+                    RaisePropertyChanged("IsLocked");
                 }
             }
         }
-
-        #endregion
     }
 }
