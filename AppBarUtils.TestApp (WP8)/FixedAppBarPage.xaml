@@ -105,7 +105,7 @@
         <abu:AppBarItemCommand Id="add" Command="{Binding AddCommand}"/>
         <abu:AppBarItemCommand Type="MenuItem" Id="clear" Command="{Binding ClearCommand}"/>
         
-        <abu:AppBarItemCommand Id="lock"
+        <abu:AppBarToggleItemCommand Id="lock"
                                IsChecked="{Binding IsLocked}"
                                Text="lock"
                                CheckedText="unlock"
