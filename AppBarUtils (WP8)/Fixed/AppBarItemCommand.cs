@@ -40,7 +40,7 @@ namespace AppBarUtils
             if (newCommand != null)
             {
                 newCommand.CanExecuteChanged += CanExecuteChanged;
-                ChangeIsEnabled();
+                OnIsEnabledChanged();
             }
         }
 
@@ -69,7 +69,7 @@ namespace AppBarUtils
                 // When this utils is used together with MVVM Light Toolkit, especially involing view model locator,
                 // binding to command object in XAML will take place before calling OnAttached method.
                 // Calling ChangeIsEnabled method here makes sure that a valid app bar item is obtained.
-                ChangeIsEnabled();
+                OnIsEnabledChanged();
             }
         }
 
@@ -91,7 +91,7 @@ namespace AppBarUtils
             }
         }
 
-        protected virtual void ChangeIsEnabled()
+        protected virtual void OnIsEnabledChanged()
         {
             // Fix for the issue reported at http://appbarutils.codeplex.com/discussions/274048
             // Thanks juarola for reporting this issue!
@@ -103,7 +103,7 @@ namespace AppBarUtils
 
         private void CanExecuteChanged(object sender, EventArgs e)
         {
-            ChangeIsEnabled();
+            OnIsEnabledChanged();
         }
     }
 }

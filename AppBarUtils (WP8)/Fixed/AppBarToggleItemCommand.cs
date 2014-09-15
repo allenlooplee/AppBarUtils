@@ -141,7 +141,7 @@ namespace AppBarUtils
 
         private void OnCheckedCommandChanged(DependencyPropertyChangedEventArgs e)
         {
-            ChangeIsEnabled();
+            OnIsEnabledChanged();
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace AppBarUtils
             }
         }
 
-        protected override void ChangeIsEnabled()
+        protected override void OnIsEnabledChanged()
         {
             // Fix for the issue reported at http://appbarutils.codeplex.com/discussions/274048
             // Thanks juarola for reporting this issue!
