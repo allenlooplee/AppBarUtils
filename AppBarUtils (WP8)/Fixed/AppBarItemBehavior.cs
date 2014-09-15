@@ -29,9 +29,9 @@ namespace AppBarUtils
         }
 
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(AppBarItemBehavior), new PropertyMetadata(TextPropertyChanged));
+            DependencyProperty.Register("Text", typeof(string), typeof(AppBarItemBehavior), new PropertyMetadata(OnTextChanged));
 
-        private void ChangeText()
+        protected virtual void OnTextChanged(DependencyPropertyChangedEventArgs e)
         {
             if (_item != null && !String.IsNullOrWhiteSpace(Text))
             {
@@ -39,9 +39,9 @@ namespace AppBarUtils
             }
         }
 
-        private static void TextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((AppBarItemBehavior)sender).ChangeText();
+            ((AppBarItemBehavior)sender).OnTextChanged(e);
         }
 
         #endregion
@@ -56,9 +56,9 @@ namespace AppBarUtils
         }
 
         public static readonly DependencyProperty IconUriProperty =
-            DependencyProperty.Register("IconUri", typeof(Uri), typeof(AppBarItemBehavior), new PropertyMetadata(IconUriPropertyChanged));
+            DependencyProperty.Register("IconUri", typeof(Uri), typeof(AppBarItemBehavior), new PropertyMetadata(OnIconUriChanged));
 
-        private void ChangeIconUri()
+        protected virtual void OnIconUriChanged(DependencyPropertyChangedEventArgs e)
         {
             if (Type == AppBarItemType.Button && _item != null && IconUri != null)
             {
@@ -66,9 +66,9 @@ namespace AppBarUtils
             }
         }
 
-        private static void IconUriPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnIconUriChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((AppBarItemBehavior)sender).ChangeIconUri();
+            ((AppBarItemBehavior)sender).OnIconUriChanged(e);
         }
 
         #endregion

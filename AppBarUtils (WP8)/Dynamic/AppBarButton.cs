@@ -28,17 +28,19 @@ namespace AppBarUtils
         public static readonly DependencyProperty IconUriProperty =
             DependencyProperty.Register("IconUri", typeof(Uri), typeof(AppBarButton), new PropertyMetadata(IconUriPropertyChanged));
 
-        private void ChangeIconUri()
+        protected virtual void OnIconUriChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (IconUri != null)
+            var newValue = e.NewValue as Uri;
+
+            if (newValue != null)
             {
-                ((IApplicationBarIconButton)_applicationBarItem).IconUri = IconUri;
+                ((IApplicationBarIconButton)_applicationBarItem).IconUri = newValue;
             }
         }
 
         private static void IconUriPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((AppBarButton)sender).ChangeIconUri();
+            ((AppBarButton)sender).OnIconUriChanged(e);
         }
 
         #endregion

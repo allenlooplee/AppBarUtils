@@ -91,6 +91,15 @@
                             </abu:AppBarButton>
                             <!--Set IconUri and Text with plain string-->
                             <abu:AppBarButton IconUri="/icons/appbar.sync.rest.png" Text="sync" Command="{Binding SampleCommand}"/>
+                            
+                            <!-- An example for the usage of the ToggleButton -->
+                            <abu:AppBarToggleButton IconUri="/icons/lock.png"
+                                                    Text="lock"
+                                                    IsChecked="{Binding IsLocked}"
+                                                    CheckedIconUri="/icons/unlock.png"
+                                                    CheckedText="unlock" 
+                                                    Command="{Binding LockCommand}"
+                                                    CheckedCommand="{Binding UnlockCommand}"/>
                         </abu:AppBar>
                         <abu:AppBar Id="1" Mode="Minimized">
                             <abu:AppBar.MenuItems>

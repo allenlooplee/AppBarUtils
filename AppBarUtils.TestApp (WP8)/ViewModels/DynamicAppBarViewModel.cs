@@ -42,6 +42,9 @@ namespace AppBarUtils.TestApp.ViewModels
                     MessageBox.Show("Delete command invoked.");
                     IsSelecting = false;
                 });
+
+            LockCommand = new ActionCommand(() => IsLocked = true);
+            UnlockCommand = new ActionCommand(() => IsLocked = false);
         }
 
         public ICommand SampleCommand { get; private set; }
@@ -66,6 +69,9 @@ namespace AppBarUtils.TestApp.ViewModels
 
         public ICommand DeleteCommand { get; private set; }
 
+        public ICommand LockCommand { get; private set; }
+        public ICommand UnlockCommand { get; private set; }
+
         public string AddButtonText
         {
             get { return "add"; }
@@ -80,6 +86,21 @@ namespace AppBarUtils.TestApp.ViewModels
         {
             get { return "help"; }
         }
+
+        private bool _isLocked = false;
+        public bool IsLocked
+        {
+            get { return _isLocked; }
+            set
+            {
+                if (_isLocked != value)
+                {
+                    _isLocked = value;
+                    RaisePropertyChanged("IsLocked");
+                }
+            }
+        }
+
     }
 
     public class TodoItem

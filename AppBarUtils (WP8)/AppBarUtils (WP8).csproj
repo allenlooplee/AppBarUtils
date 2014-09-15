@@ -87,6 +87,7 @@
     <Compile Include="Dynamic\AppBarButton.cs" />
     <Compile Include="Dynamic\AppBarItemBase.cs" />
     <Compile Include="Dynamic\AppBarMenuItem.cs" />
+    <Compile Include="Dynamic\AppBarToggleButton.cs" />
     <Compile Include="Dynamic\ManualTrigger.cs" />
     <Compile Include="Dynamic\SelectedPanoItemChangedTrigger.cs" />
     <Compile Include="Dynamic\SelectedPivotItemChangedTrigger.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Fixed\AppBarItemType.cs" />
     <Compile Include="Fixed\AppBarPropertyBinder.cs" />
     <Compile Include="Common\ExtensionMethods.cs" />
+    <Compile Include="Fixed\AppBarToggleItemCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
