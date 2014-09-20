@@ -14,8 +14,7 @@ Sample code
 ```
 <!--Behaviors for fixed app bar-->
 <i:Interaction.Behaviors>
-    <abu:AppBarItemCommand Id="locked" Text="{Binding LockButtonDisplayText}"
-        IconUri="{Binding LockButtonIconUri}" Command="{Binding LockCommand}"/>
+    <abu:AppBarItemCommand Id="add" Command="{Binding AddCommand}"/>
 </i:Interaction.Behaviors>
 
 <i:Interaction.Triggers>
