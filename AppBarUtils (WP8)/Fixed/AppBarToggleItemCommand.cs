@@ -236,10 +236,10 @@ namespace AppBarUtils
         {
             base.OnAttached();
 
-            if (IsChecked)
-            {
-                var button = _item as IApplicationBarIconButton;
+            var button = _item as IApplicationBarIconButton;
 
+            if (button != null && Type == AppBarItemType.Button && IsChecked)
+            {
                 button.Text = CheckedText;
                 button.IconUri = CheckedIconUri;
 
