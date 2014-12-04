@@ -101,7 +101,7 @@ namespace AppBarUtils
             }            
         }
 
-        private void CanExecuteChanged(object sender, EventArgs e)
+        protected void CanExecuteChanged(object sender, EventArgs e)
         {
             OnIsEnabledChanged();
         }

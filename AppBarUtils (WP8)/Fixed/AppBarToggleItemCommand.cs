@@ -141,7 +141,18 @@ namespace AppBarUtils
 
         private void OnCheckedCommandChanged(DependencyPropertyChangedEventArgs e)
         {
-            OnIsEnabledChanged();
+            var oldCommand = e.OldValue as ICommand;
+            if (oldCommand != null)
+            {
+                oldCommand.CanExecuteChanged -= CanExecuteChanged;
+            }
+
+            var newCommand = e.NewValue as ICommand;
+            if (newCommand != null)
+            {
+                newCommand.CanExecuteChanged += CanExecuteChanged;
+                OnIsEnabledChanged();
+            }
         }
 
         /// <summary>
@@ -218,6 +229,28 @@ namespace AppBarUtils
             else if (IsChecked && CheckedCommand != null && CheckedCommand.CanExecute(CheckedCommandParameter))
             {
                 CheckedCommand.Execute(CheckedCommandParameter);
+            }
+        }
+
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+
+            var button = _item as IApplicationBarIconButton;
+
+            if (button != null && Type == AppBarItemType.Button && IsChecked)
+            {
+                button.Text = CheckedText;
+                button.IconUri = CheckedIconUri;
+
+                if (CheckedCommand != null)
+                {
+                    button.IsEnabled = CheckedCommand.CanExecute(CheckedCommandParameter);
+                }
+                else
+                {
+                    button.IsEnabled = true;
+                }
             }
         }
 
